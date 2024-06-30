@@ -1,1 +1,42 @@
 
+ snake.x += snake.dir_x
+
+ snake.y += snake.dir_y
+
+ 
+
+ screen.fill((0, 0, 0))
+
+ for x, y in snake.snake_list:
+
+ snake_box = pygame.draw.rect(screen, snake.green_color, (x, y, snake.width, snake.height))
+
+ food_box = pygame.draw.circle(screen,food.red_color,(food.x, food.y),food.size)
+
+ if snake_box.colliderect(food_box):
+
+ food = Food(8)
+
+ snake.snake_length += 5
+
+ 
+
+ snake.snake_list.append([snake.x, snake.y])
+
+ if len(snake.snake_list) > snake.snake_length:
+
+ snake.snake_list.pop(0)
+
+ if snake.snake_list[-1] in snake.snake_list[:-1]:
+
+ time.sleep(1)
+
+ snake.snake_list.clear()
+
+ snake.snake_length = 5
+ screen_text = font.render(f"Score - {snake.snake_length-1}",True, (255,255,255))
+ screen.blit(screen_text,(10,10))
+ pygame.display.update()
+ 
+ clock.tick(50)
+ 
